@@ -5,11 +5,11 @@ using WeatherTechnicalTest.Proxies.Interfaces;
 namespace WeatherTechnicalTest.Controllers
 {
     [Route("api")]
-    public class CitiesController : Controller
+    public class WeatherController : Controller
     {
         private readonly IGlobalWeatherProxy _globalWeatherProxy;
 
-        public CitiesController(IGlobalWeatherProxy globalWeatherProxy)
+        public WeatherController(IGlobalWeatherProxy globalWeatherProxy)
         {
             _globalWeatherProxy = globalWeatherProxy;
         }
