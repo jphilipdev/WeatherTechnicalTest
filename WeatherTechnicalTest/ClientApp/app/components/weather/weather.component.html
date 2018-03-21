@@ -1,6 +1,6 @@
 <h1>Weather</h1>
 
-<div class="row">
+<div class="row instructions">
     <p>Choose a country to get started.</p>
 </div>
 
@@ -12,6 +12,13 @@
     </div>
 </div>
 
-<div class="row">
-    
+<div class="form-inline" *ngIf="cities">
+    <div class="form-group">
+        <label for="city">City:</label>
+        <select name="city" class="form-control">
+            <option *ngFor="let city of cities" value={{city}}>
+                {{city}}
+            </option>
+        </select>
+    </div>
 </div>

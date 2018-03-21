@@ -3,7 +3,8 @@ import { Http } from '@angular/http';
 
 @Component({
     selector: 'weather',
-    templateUrl: './weather.component.html'
+    templateUrl: './weather.component.html',
+    styleUrls: ['./weather.component.css']
 })
 export class WeatherComponent {
     public country: string;
