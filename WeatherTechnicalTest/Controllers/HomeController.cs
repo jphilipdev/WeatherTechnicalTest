@@ -14,11 +14,11 @@ namespace WeatherTechnicalTest.Controllers
         }
         public IActionResult Index()
         {
-            var test = _globalWeatherProxy.GetCitiesByCountry("Australia");
-            //var test = new GlobalWeather.GlobalWeatherSoapClient(new GlobalWeather.GlobalWeatherSoapClient.EndpointConfiguration());
-            //var a = test.GetCitiesByCountryAsync("Australia").Result;
+            var test = _globalWeatherProxy.GetCitiesByCountry("Australia").Result;
+            //var client= new GlobalWeather.GlobalWeatherSoapClient(new GlobalWeather.GlobalWeatherSoapClient.EndpointConfiguration());
+            //var cities = await client.GetCitiesByCountryAsync("Australia");
             ////var serializer = new XmlSerializer(typeof(@string));
-            ////serializer.Deserialize(new MemoryStream()
+            //////serializer.Deserialize(new MemoryStream()
 
             //XmlSerializer ser = new XmlSerializer(typeof(String));
             //using (TextReader reader = new StringReader(a))
