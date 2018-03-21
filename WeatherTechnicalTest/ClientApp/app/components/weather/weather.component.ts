@@ -1,5 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { Http } from '@angular/http';
+import { DatePipe } from '@angular/common';
 
 @Component({
     selector: 'weather',
@@ -9,6 +10,8 @@ import { Http } from '@angular/http';
 export class WeatherComponent {
     public country: string;
     public cities: string[];
+    public city: string;
+    public weather: Weather;
 
     constructor(private http: Http, @Inject('BASE_URL') private baseUrl: string) { }
 
@@ -17,32 +20,22 @@ export class WeatherComponent {
             this.cities = result.json() as string[];
         }, error => console.error(error));
     }
+
+    public onCityChange() {
+        this.http.get(this.baseUrl + 'api/country/' + this.country + '/cities/' + this.city + '/weather').subscribe(result => {
+            this.weather = result.json() as Weather;
+        }, error => console.error(error));
+    }
 }
 
-interface RaceDetails {
-    race: Race;
-    status: string;
-    totalPlace: number;
-    Horses: HorseDetails[];
+interface Weather {
+    location: string,
+    time: Date,
+    wind: string,
+    visibility: string,
+    skyConditions: string,
+    temperature: number,
+    dewPoint: number,
+    relativeHumidity: number,
+    pressure: number
 }
-
-interface Race {
-    id: number;
-    name: string;
-    start: Date;
-    status: string;
-    Horses: Horse[]
-}
-
-interface Horse {
-    id: number;
-    name: string;
-    odds: string;
-}
-
-interface HorseDetails {
-    horse: Horse;
-    numberOfBets: number;
-    totalPotentialPayout: number;
-}
-

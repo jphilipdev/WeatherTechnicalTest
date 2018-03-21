@@ -15,10 +15,51 @@
 <div class="form-inline" *ngIf="cities">
     <div class="form-group">
         <label for="city">City:</label>
-        <select name="city" class="form-control">
+        <select name="city" [(ngModel)]="city" (ngModelChange)="onCityChange($event)" class="form-control">
             <option *ngFor="let city of cities" value={{city}}>
                 {{city}}
             </option>
         </select>
+    </div>
+</div>
+
+
+<div *ngIf="weather">
+    <h3>Weather Results</h3>
+    <div class="row">
+        <div class="col-md-4 col-lg-2 weather-label">Location</div>
+        <div class="col-md-4 col-lg-2">{{weather.location}}</div>
+    </div>
+    <div class="row">
+        <div class="col-md-4 col-lg-2 weather-label">Time</div>
+        <div class="col-md-4 col-lg-2">{{weather.time | date:'short'}}</div>
+    </div>
+    <div class="row">
+        <div class="col-md-4 col-lg-2 weather-label">Wind</div>
+        <div class="col-md-4 col-lg-2">{{weather.wind}}</div>
+    </div>
+    <div class="row">
+        <div class="col-md-4 col-lg-2 weather-label">Visibility</div>
+        <div class="col-md-4 col-lg-2">{{weather.visibility}}</div>
+    </div>
+    <div class="row">
+        <div class="col-md-4 col-lg-2 weather-label">Sky Conditions</div>
+        <div class="col-md-4 col-lg-2">{{weather.skyConditions}}</div>
+    </div>
+    <div class="row">
+        <div class="col-md-4 col-lg-2 weather-label">Temperature</div>
+        <div class="col-md-4 col-lg-2">{{weather.temperature}}</div>
+    </div>
+    <div class="row">
+        <div class="col-md-4 col-lg-2 weather-label">Dew Point</div>
+        <div class="col-md-4 col-lg-2">{{weather.dewPoint}}</div>
+    </div>
+    <div class="row">
+        <div class="col-md-4 col-lg-2 weather-label">Relative Humidity</div>
+        <div class="col-md-4 col-lg-2">{{weather.relativeHumidity}}</div>
+    </div>
+    <div class="row">
+        <div class="col-md-4 col-lg-2 weather-label">Pressure</div>
+        <div class="col-md-4 col-lg-2">{{weather.pressure}}</div>
     </div>
 </div>

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using WeatherTechnicalTest.Models;
 
 namespace WeatherTechnicalTest.Proxies.Interfaces
 {
@@ -7,6 +8,6 @@ namespace WeatherTechnicalTest.Proxies.Interfaces
     {
         Task<IReadOnlyList<string>> GetCitiesByCountry(string country);
 
-        Task<IReadOnlyList<string>> GetWeatherByCountryAndCity(string country, string city);
+        Task<Weather> GetWeatherByCountryAndCity(string country, string city);
     }
 }

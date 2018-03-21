@@ -5,3 +5,7 @@
 .form-inline {
     margin-bottom: 15px;
 }
+
+.weather-label {
+    font-weight: bold;
+}

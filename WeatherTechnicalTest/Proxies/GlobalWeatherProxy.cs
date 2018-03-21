@@ -7,6 +7,7 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
+using WeatherTechnicalTest.Models;
 using WeatherTechnicalTest.Proxies.Interfaces;
 
 namespace WeatherTechnicalTest.Proxies
@@ -39,21 +40,34 @@ namespace WeatherTechnicalTest.Proxies
 
             // so had to fall back to using HttpClient and using HtmlDecode before deserialising
 
-            var cities = await HttpClient.GetAsync($"{_baseAddress}/globalweather.asmx/GetCitiesByCountry?CountryName={country}");
+            var result = await Get<Models.String>($"globalweather.asmx/GetCitiesByCountry?CountryName={country}");
+            return result.NewDataSet.Table.Select(p => p.City).ToList();
+        }
+
+        public Task<Weather> GetWeatherByCountryAndCity(string country, string city)
+        {
+            // the globalweather.asmx endpoint didn't return any results, e.g. http://www.webservicex.net/globalweather.asmx/GetWeather?CityName=Derby&CountryName=Australia
+            // the alternative openweathermap endpoint returned a 401
+            // so had to use mocked data
+
+            //var result = await Get<Weather>($"globalweather.asmx/GetWeather?CountryName={country}&CityName={city}");
+            //return result;
+
+            return Task.FromResult(new Weather("Sunny Sydney", DateTime.Now, "40mph NE", "good", "clear", 24.8, 6.2, 75, 1123));
+        }
+
+        private async Task<T> Get<T>(string relativeUri)
+        {
+            var cities = await HttpClient.GetAsync($"{_baseAddress}/{relativeUri}");
             var responseBody = await cities.Content.ReadAsStringAsync();
             var decodedResponse = WebUtility.HtmlDecode(responseBody);
 
-            var serialiser = new XmlSerializer(typeof(Models.String));
+            var serialiser = new XmlSerializer(typeof(T));
             using (var reader = new StringReader(decodedResponse))
             {
-                var result = (Models.String)serialiser.Deserialize(reader);
-                return result.NewDataSet.Table.Select(p => p.City).ToList();
+                var result = (T)serialiser.Deserialize(reader);
+                return result;
             }
-        }
-
-        public Task<IReadOnlyList<string>> GetWeatherByCountryAndCity(string country, string city)
-        {
-            throw new NotImplementedException();
         }
     }
 }

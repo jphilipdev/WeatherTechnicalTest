@@ -21,7 +21,7 @@ namespace WeatherTechnicalTest.Controllers
             return Ok(cities);
         }
 
-        [HttpGet, Route("country/{country}/cities/weather/{city}")]
+        [HttpGet, Route("country/{country}/cities/{city}/weather")]
         public async Task<IActionResult> GetWeather(string country, string city)
         {
             var weather = await _globalWeatherProxy.GetWeatherByCountryAndCity(country, city);
